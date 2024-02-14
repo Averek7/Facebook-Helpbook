@@ -1,5 +1,8 @@
-import React, { useState } from "react";
-import {signIn} from "next-auth/react"
+import axios from "axios";
+import { signIn } from "next-auth/react";
+import { redirect } from "next/dist/server/api-utils";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 function Login({ switchOnClick }) {
   const [data, setData] = useState({
@@ -12,7 +15,29 @@ function Login({ switchOnClick }) {
     const { name, value, type, checked } = e.target;
     const newValue = type === "checkbox" ? checked : value;
     setData({ ...data, [name]: newValue });
-    console.log(data)
+  };
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post("http://localhost:5000/auth/login", {
+        email: data.email,
+        password: data.password,
+      });
+
+      if (response.data.status) {
+        const signInResult = await signIn("facebook", {
+          callbackUrl: "/dashboard",
+          redirect: false,
+        });
+        if (signInResult?.error) {
+          console.error("Sign in error:", signInResult.error);
+        }
+      } else {
+        console.log("Authentication failed");
+      }
+    } catch (error) {
+      console.error("Error occurred during login:", error);
+    }
   };
 
   return (
@@ -51,7 +76,10 @@ function Login({ switchOnClick }) {
             className=""
           />
         </div>
-        <button className="w-full text-white bg-blue-600 p-3 rounded-md" onClick={() => signIn('')}>
+        <button
+          className="w-full text-white bg-blue-600 p-3 rounded-md"
+          onClick={handleLogin}
+        >
           Login
         </button>
         <div className="mt-5">

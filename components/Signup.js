@@ -1,6 +1,8 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 function Signup({ switchOnClick }) {
+  const host = "http://localhost:5000";
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -14,6 +16,19 @@ function Signup({ switchOnClick }) {
     setData({ ...data, [name]: newValue });
     console.log(data);
   };
+
+  const handleSignUp = async () => {
+    try{
+      const response = await axios.post(`${host}/auth/signup`,{
+        name: data.name,
+        email: data.email,
+        password: data.password
+      })
+      console.log(response.data.status);
+    }catch(e){
+      console.error(e);
+    }
+  }
 
   return (
     <div className="bg-white rounded-lg">
@@ -62,7 +77,7 @@ function Signup({ switchOnClick }) {
             className=""
           />
         </div>
-        <button className="w-full text-white bg-blue-600 p-3 rounded-md">
+        <button className="w-full text-white bg-blue-600 p-3 rounded-md" onClick={handleSignUp}>
           Sign Up
         </button>
         <div className="mt-5">
