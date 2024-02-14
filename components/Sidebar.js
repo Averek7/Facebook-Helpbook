@@ -25,15 +25,12 @@ function Sidebar() {
     <div className="w-full h-full flex flex-col items-center justify-evenly">
       <div className="w-full h-full flex flex-col justify-start gap-5 mt-5">
         <div
-          className={`w-full flex items-center justify-center p-2 ${getIconStyles(
-            "Logo"
-          )}`}
-          onClick={() => handleIconSelect("Logo")}
+          className={`w-full flex items-center justify-center p-2 cursor-pointer}`}
         >
-          <GrGraphQl size={40} className="" />
+          <GrGraphQl size={40} className="text-white" />
         </div>
         <div
-          className={`w-full flex items-center justify-center p-2 ${getIconStyles(
+          className={`w-full flex items-center justify-center p-2 cursor-pointer ${getIconStyles(
             "Inbox"
           )}`}
           onClick={() => handleIconSelect("Inbox")}
@@ -41,7 +38,7 @@ function Sidebar() {
           <FaInbox size={40} className="" />
         </div>
         <div
-          className={`w-full flex items-center justify-center p-2 ${getIconStyles(
+          className={`w-full flex items-center justify-center p-2 cursor-pointer ${getIconStyles(
             "Group"
           )}`}
           onClick={() => handleIconSelect("Group")}
@@ -49,7 +46,7 @@ function Sidebar() {
           <FaUserGroup size={40} className="" />
         </div>
         <div
-          className={`w-full flex items-center justify-center p-2 ${getIconStyles(
+          className={`w-full flex items-center justify-center p-2 cursor-pointer ${getIconStyles(
             "Analytics"
           )}`}
           onClick={() => handleIconSelect("Analytics")}

@@ -19,7 +19,7 @@ function Login({ switchOnClick }) {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/auth/login", {
+      const response = await axios.post(`{${process.env.HOST}/auth/login}`, {
         email: data.email,
         password: data.password,
       });
@@ -33,7 +33,7 @@ function Login({ switchOnClick }) {
           console.error("Sign in error:", signInResult.error);
         }
       } else {
-        console.log("Authentication failed");
+        console.error("Authentication failed");
       }
     } catch (error) {
       console.error("Error occurred during login:", error);

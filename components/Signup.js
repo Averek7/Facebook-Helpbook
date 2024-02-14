@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useState } from "react";
 
 function Signup({ switchOnClick }) {
-  const host = "http://localhost:5000";
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -19,12 +18,13 @@ function Signup({ switchOnClick }) {
 
   const handleSignUp = async () => {
     try{
-      const response = await axios.post(`${host}/auth/signup`,{
+      const response = await axios.post(`${process.env.HOST}/auth/signup`,{
         name: data.name,
         email: data.email,
         password: data.password
-      })
-      console.log(response.data.status);
+      }) 
+
+      response.data.status === 200 && (() => switchOnClick())
     }catch(e){
       console.error(e);
     }
